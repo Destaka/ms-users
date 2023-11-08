@@ -5,6 +5,25 @@ useDotenv: true
 provider:
   name: aws
   runtime: nodejs16.x
+  region: 'us-east-1'
+  stage: ${opt:stage, "${env:stage, 'dev'}"}
+  memorySize: 512
+  apiGateway:
+    restApiId: ${ssm:/destaka/infra/api-gateway/id}
+    restApiRootResourceId: ${ssm:/destaka/infra/api-gateway/root-resource-id}
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:DescribeTable
+            - dynamodb:Query
+            - dynamodb:CreateTable
+            - dynamodb:PutItem
+          Resource: 'arn:aws:dynamodb:${aws:region}:${aws:accountId}:*'
+  environment:
+      STAGE: ${self:provider.stage}
+      REGION: ${self:provider.region}
 
 plugins:
   - serverless-esbuild
@@ -19,3 +38,14 @@ custom:
   contextPath: ${self:custom.serviceName}
   baseApi: ${self:custom.contextPath}
   funcDir: src/framework/functions
+
+functions:
+  createUser:
+    handler: ${self:custom.funcDir}/createUser.handler
+    events:
+      - http:
+          path: ${self:custom.baseApi}/
+          method: post
+          cors:
+            origin: '*'
+            headers: '*'
