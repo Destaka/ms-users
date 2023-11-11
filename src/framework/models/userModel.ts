@@ -35,19 +35,19 @@ const schema: SchemaDefinition = {
   },
   password: {
     type: String,
-    required: false
+    required: true
   },
   cpf: {
     type: String,
-    required: false
+    required: true
   },
   email: {
     type: String,
-    required: false
+    required: true
   },
   phone: {
     type: String,
-    required: false
+    required: true
   }
 }
 

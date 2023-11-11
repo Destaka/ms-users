@@ -3,7 +3,7 @@ import { injectable, inject } from 'inversify'
 import { left, right } from '../../framework/shared/either'
 import { AbstractOperator } from './abstractOperator'
 import { CreateUserUseCase } from '../../business/useCases/createUserUseCase'
-import { InputCreateUser, OutputCreateUser } from '../serializers/inputCreateTransaction'
+import { InputCreateUser, OutputCreateUser } from '../serializers/inputCreateUser'
 
 @injectable()
 export class CreateUserOperator extends AbstractOperator<InputCreateUser, OutputCreateUser> {
