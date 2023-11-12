@@ -13,16 +13,15 @@ export class GetUserUseCase implements IUseCase<InputGetUserDto, OutputGetUserDt
   async exec(input: InputGetUserDto): Promise<OutputGetUserDto> {
     try {
       const user = await this.userRepository.get(input.userId)
-      console.log('GetUserUseCase::user ? ', user)
 
       if (!user) {
         return left(UserNotFound)
       }
 
+      console.log('GetUserUseCase::user ? ', user)
       return right(user);
     } catch (error) {
       console.log('GetUserUseCase::Error ', error)
-
       return left(UserReadingFailed)
     }
   }
