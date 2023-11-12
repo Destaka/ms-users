@@ -21,6 +21,7 @@ provider:
             - dynamodb:CreateTable
             - dynamodb:GetItem
             - dynamodb:PutItem
+            - dynamodb:UpdateItem
           Resource: 'arn:aws:dynamodb:${aws:region}:${aws:accountId}:*'
   environment:
       STAGE: ${self:provider.stage}
@@ -56,6 +57,15 @@ functions:
       - http:
           path: ${self:custom.baseApi}/{userId}
           method: get
+          cors:
+            origin: '*'
+            headers: '*'
+  updateUser:
+    handler: ${self:custom.funcDir}/updateUser.handler
+    events:
+      - http:
+          path: ${self:custom.baseApi}/
+          method: put
           cors:
             origin: '*'
             headers: '*'

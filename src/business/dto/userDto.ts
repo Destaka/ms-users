@@ -16,5 +16,17 @@ export interface InputGetUserDto {
   userId: string
 }
 
+export interface InputUpdateUserDto {
+  userId: string
+  name?: string
+  birthDate?: Date
+  gender?: GenderTypes
+  password?: string
+  cpf?: string
+  email?: string
+  phone?: string
+}
+
 export type OutputCreateUserDto = Either<IError, IUserEntity>
 export type OutputGetUserDto = Either<IError, IUserEntity>
+export type OutputUpdateUserDto = Either<IError, IUserEntity>

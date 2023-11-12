@@ -10,8 +10,14 @@ export const UserReadingFailed = {
   shortMessage: 'userReadingFailed'
 }
 
+export const UserUpdateFailed = {
+  code: 'UUF-003',
+  message: 'User update failed',
+  shortMessage: 'userUpdateFailed'
+}
+
 export const UserNotFound = {
-  code: 'UNF-003',
+  code: 'UNF-004',
   message: 'User not found',
   shortMessage: 'userNotFound'
 }

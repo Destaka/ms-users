@@ -3,6 +3,8 @@ import { inject, injectable } from "inversify"
 import { UserModel } from "../models/userModel"
 import { IUserEntity } from "../../domain/entities/userEntity"
 import { IUserRepository } from "../../business/repositories/iUserRepository"
+import { InputUpdateUserDto } from "../../business/dto/userDto"
+import { Condition } from "dynamoose"
 
 enum Prefixes {
   users = 'USERS'
@@ -42,5 +44,29 @@ export class UserRepository implements IUserRepository {
     delete result?.password
 
     return result
+  }
+
+  async update(updateProps: InputUpdateUserDto): Promise<IUserEntity> {
+    const condition = new Condition().where('userId').eq(updateProps.userId)
+    const response = await this.userModel.update({
+      pk: Prefixes.users,
+      sk: updateProps.userId,
+    }, {
+      ...(updateProps?.name && { name: updateProps.name }),
+      ...(updateProps?.birthDate && { birthDate: updateProps.birthDate }),
+      ...(updateProps?.gender && { gender: updateProps.gender }),
+      ...(updateProps?.password && { password: updateProps.password }),
+      ...(updateProps?.cpf && { cpf: updateProps.cpf }),
+      ...(updateProps?.email && { email: updateProps.email }),
+      ...(updateProps?.phone && { phone: updateProps.phone })
+    }, {
+      condition: condition
+    })
+
+    delete response?.pk
+    delete response?.sk
+    delete response?.password
+
+    return response
   }
 }
