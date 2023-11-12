@@ -25,6 +25,7 @@ export class UserRepository implements IUserRepository {
 
     delete result?.pk
     delete result?.sk
+    delete result?.password
 
     return result
   }

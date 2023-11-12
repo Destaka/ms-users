@@ -6,6 +6,7 @@ import { InputCreateUserDto, OutputCreateUserDto } from '../dto/userDto'
 import { UserCreationFailed } from '../module/errors/users'
 import { IUserRepository, IUserRepositoryToken } from '../repositories/iUserRepository'
 import { UserEntity } from '../../domain/entities/userEntity'
+import { HandlePassword } from './handler/passwordHandler'
 
 @injectable()
 export class CreateUserUseCase implements IUseCase<InputCreateUserDto, OutputCreateUserDto> {
@@ -13,6 +14,10 @@ export class CreateUserUseCase implements IUseCase<InputCreateUserDto, OutputCre
 
   async exec(input: InputCreateUserDto): Promise<OutputCreateUserDto> {
     try {
+      const handlePassword = new HandlePassword()
+      const hashedPassword = handlePassword.hashPassword(input.password)
+      input.password = hashedPassword
+
       const userResult = UserEntity.create(input)
 
       if (userResult.isLeft()) {

@@ -10,7 +10,6 @@ import { InputGetUser } from '../../controller/serializers/inputGetUser'
 import { UserNotFound } from '../../business/module/errors/users'
 
 export const handler = httpHandler(async (event: APIGatewayProxyEvent, context: Context) => {
-
   context.callbackWaitsForEmptyEventLoop = false
   const operator = container.get(GetUserOperator)
   const body = event?.pathParameters as Object
