@@ -16,8 +16,14 @@ export const UserUpdateFailed = {
   shortMessage: 'userUpdateFailed'
 }
 
+export const UserDeletionFailed = {
+  code: 'UDF-004',
+  message: 'User deletion failed',
+  shortMessage: 'userDeletionFailed'
+}
+
 export const UserNotFound = {
-  code: 'UNF-004',
+  code: 'UNF-005',
   message: 'User not found',
   shortMessage: 'userNotFound'
 }

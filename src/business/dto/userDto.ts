@@ -27,6 +27,11 @@ export interface InputUpdateUserDto {
   phone?: string
 }
 
+export interface InputDeleteUserDto {
+  userId: string
+}
+
 export type OutputCreateUserDto = Either<IError, IUserEntity>
 export type OutputGetUserDto = Either<IError, IUserEntity>
 export type OutputUpdateUserDto = Either<IError, IUserEntity>
+export type OutputDeleteUserDto = Either<IError, boolean>

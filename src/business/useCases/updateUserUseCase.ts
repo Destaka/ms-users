@@ -25,10 +25,10 @@ export class UpdateUserUseCase implements IUseCase<InputUpdateUserDto, OutputUpd
         email: input.email,
         phone: input.phone
       })
+      console.log('UpdateUserUseCase::user ? ', user)
 
       if (!user) return left(UserNotFound)
      
-      console.log('UpdateUserUseCase::user ? ', user)
       return right(user)
     } catch (error) {
       console.log('UpdateUserUseCase::Error ', error)

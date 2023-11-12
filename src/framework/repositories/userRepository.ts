@@ -13,7 +13,6 @@ enum Prefixes {
 @injectable()
 export class UserRepository implements IUserRepository {
   public constructor(@inject(UserModel) private userModel: typeof UserModel) { }
-  private readonly pk = Prefixes.users
 
   async create(input: IUserEntity): Promise<IUserEntity> {
     const pk = Prefixes.users
@@ -34,7 +33,7 @@ export class UserRepository implements IUserRepository {
 
   async get(userId: string): Promise<IUserEntity> {
     const response = await this.userModel.query({
-      pk: this.pk,
+      pk: Prefixes.users,
       sk: userId,
     }).exec()
     const result = response.toJSON()[0]
@@ -68,5 +67,14 @@ export class UserRepository implements IUserRepository {
     delete response?.password
 
     return response
+  }
+
+  async delete(userId: string): Promise<boolean> {
+    const response = await this.userModel.delete({
+      pk: Prefixes.users,
+      sk: userId,
+    })
+
+    return true
   }
 }

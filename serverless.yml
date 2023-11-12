@@ -22,6 +22,7 @@ provider:
             - dynamodb:GetItem
             - dynamodb:PutItem
             - dynamodb:UpdateItem
+            - dynamodb:DeleteItem
           Resource: 'arn:aws:dynamodb:${aws:region}:${aws:accountId}:*'
   environment:
       STAGE: ${self:provider.stage}
@@ -66,6 +67,15 @@ functions:
       - http:
           path: ${self:custom.baseApi}/
           method: put
+          cors:
+            origin: '*'
+            headers: '*'
+  deleteProduct:
+    handler: ${self:custom.funcDir}/deleteUser.handler
+    events:
+      - http:
+          path: ${self:custom.baseApi}/{userId}
+          method: delete
           cors:
             origin: '*'
             headers: '*'
