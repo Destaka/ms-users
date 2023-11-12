@@ -12,4 +12,9 @@ export interface InputCreateUserDto {
   phone: string
 }
 
+export interface InputGetUserDto {
+  userId: string
+}
+
 export type OutputCreateUserDto = Either<IError, IUserEntity>
+export type OutputGetUserDto = Either<IError, IUserEntity>

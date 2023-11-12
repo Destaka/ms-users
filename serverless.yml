@@ -19,6 +19,7 @@ provider:
             - dynamodb:DescribeTable
             - dynamodb:Query
             - dynamodb:CreateTable
+            - dynamodb:GetItem
             - dynamodb:PutItem
           Resource: 'arn:aws:dynamodb:${aws:region}:${aws:accountId}:*'
   environment:
@@ -46,6 +47,15 @@ functions:
       - http:
           path: ${self:custom.baseApi}/
           method: post
+          cors:
+            origin: '*'
+            headers: '*'
+  getUser:
+    handler: ${self:custom.funcDir}/getUser.handler
+    events:
+      - http:
+          path: ${self:custom.baseApi}/{userId}
+          method: get
           cors:
             origin: '*'
             headers: '*'
