@@ -32,5 +32,5 @@ export const handler = httpHandler(async (event: APIGatewayProxyEvent, context: 
     return httpResponse.badRequest(result.value)
   }
 
-  return httpResponse.created(result.value)
+  return httpResponse.ok(result.value)
 })

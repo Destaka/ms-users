@@ -70,7 +70,7 @@ functions:
           cors:
             origin: '*'
             headers: '*'
-  deleteProduct:
+  deleteUser:
     handler: ${self:custom.funcDir}/deleteUser.handler
     events:
       - http:
