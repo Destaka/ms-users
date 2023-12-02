@@ -25,8 +25,9 @@ provider:
             - dynamodb:DeleteItem
           Resource: 'arn:aws:dynamodb:${aws:region}:${aws:accountId}:*'
   environment:
-      STAGE: ${self:provider.stage}
-      REGION: ${self:provider.region}
+    STAGE: ${self:provider.stage}
+    REGION: ${self:provider.region}
+    CREATE_IDENTITY: ${env:CREATE_IDENTITY, ssm:/destaka/invoke/createIdentity}
 
 plugins:
   - serverless-esbuild
