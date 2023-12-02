@@ -20,9 +20,12 @@ export class CreateUserUseCase implements IUseCase<InputCreateUserDto, OutputCre
     try {
       const handlePassword = new HandlePassword()
       const hashedPassword = handlePassword.hashPassword(input.password)
-      input.password = hashedPassword
+      const password = hashedPassword
 
-      const userResult = UserEntity.create(input)
+      const userResult = UserEntity.create({
+        ...input,
+        password,
+      })
 
       if (userResult.isLeft()) {
         return left(UserCreationFailed)
