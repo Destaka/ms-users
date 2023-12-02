@@ -16,7 +16,9 @@ provider:
       statements:
         - Effect: Allow
           Action:
-            - lambda:InvokeFunction
+          - lambda:InvokeFunction
+          Resource:
+            - "*"
         - Effect: Allow
           Action:
             - dynamodb:DescribeTable
