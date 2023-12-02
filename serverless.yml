@@ -16,6 +16,9 @@ provider:
       statements:
         - Effect: Allow
           Action:
+            - lambda:InvokeFunction
+        - Effect: Allow
+          Action:
             - dynamodb:DescribeTable
             - dynamodb:Query
             - dynamodb:CreateTable
